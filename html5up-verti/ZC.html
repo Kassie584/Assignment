@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My friends</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/tooplate-style.css">
+    <style>
+        .friend {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .friend:nth-child(2n) {
+            flex-direction: row-reverse;
+        }
+        .friend img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .friend:nth-child(2n) img {
+            margin-right: 0;
+            margin-left: 20px;
+        }
+        .friend .info {
+            flex: 1;
+        }
+        .friend .info h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .friend .info p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body class="tm-bg-dark">
+    <main class="tm-container masonry">
+                <div class="friend">
+            <img src="friend1.jpg" alt="ZHANG Chi">
+            <div class="info">
+                <h2>ZHANG Chi</h2>
+                <p>Nickname: Pondy <br>
+                   Where we met: CUCN<br>
+                   Favorite things: Hanging out, chatting with friends, sitting outside when the weather is nice <br>
+                   We often gather at: 1103 Broad Game, JF Center, Mei KTV, Orange Hotel</br>
+                </p>
+            </div>
+        </div>
+        <div class="friend">
+            <div class="info">
+                <h2>朋友2</h2>
+                <p>这是我的朋友2的介绍。</p>
+            </div>
+            <img src="friend2.jpg" alt="朋友2">
+        </div>
+        <div class="friend">
+            <img src="friend3.jpg" alt="朋友3">
+            <div class="info">
+                <h2>朋友3</h2>
+                <p>这是我的朋友3的介绍。</p>
+            </div>
+        </div>
+    </main>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        let callAdjustLayout;
+        let currentLayout = "desktop",
+            nextLayout = "desktop";
+        function detectIE() {
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf('MSIE ');
+            if (msie > 0) {
+                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+            }
+            var trident = ua.indexOf('Trident/');
+            if (trident > 0) {
+                var rv = ua.indexOf('rv:');
+                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+            }
+            var edge = ua.indexOf('Edge/');
+            if (edge > 0) {
+                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+            }
+            return false;
+        }
+        function adjustLayout() {
+            let block1, block2, block3, block4, block5, block6, block7, block8, block9;
+            if (window.innerWidth <= 1199) {
+                nextLayout = "mobile";
+                block1 = $("div[data-mobile-seq-no='1']");
+                block2 = $("div[data-mobile-seq-no='2']");
+                block3 = $("div[data-mobile-seq-no='3']");
+                block4 = $("div[data-mobile-seq-no='4']");
+                block5 = $("div[data-mobile-seq-no='5']");
+                block6 = $("div[data-mobile-seq-no='6']");
+                block7 = $("div[data-mobile-seq-no='7']");
+                block8 = $("div[data-mobile-seq-no='8']");
+                block9 = $("div[data-mobile-seq-no='9']");
+            } else {
+                nextLayout = "desktop";
+                block1 = $("div[data-desktop-seq-no='1']");
+                block2 = $("div[data-desktop-seq-no='2']");
+                block3 = $("div[data-desktop-seq-no='3']");
+                block4 = $("div[data-desktop-seq-no='4']");
+                block5 = $("div[data-desktop-seq-no='5']");
+                block6 = $("div[data-desktop-seq-no='6']");
+                block7 = $("div[data-desktop-seq-no='7']");
+                block8 = $("div[data-desktop-seq-no='8']");
+                block9 = $("div[data-desktop-seq-no='9']");
+            }
+            if (nextLayout !== currentLayout) {
+               .after(block2.detach());
+                block2.after(block3.detach());
+                block3.after(block4.detach());
+                block4.after(block5.detach());
+                block5.after(block6.detach());
+                block6.after(block7.detach());
+                block7.after(block8.detach());
+                block8.after(block9.detach());
+                currentLayout = nextLayout;
+                       clearTimeout(callAdjustLayout);
+            callAdjustLayout = setTimeout(adjustLayout, 100);
+        }
+        $(function () {
